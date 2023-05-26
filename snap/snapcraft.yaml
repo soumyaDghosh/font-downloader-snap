@@ -1,0 +1,46 @@
+name: font-downloader # you probably want to 'snapcraft register <name>'
+base: core22 # the base snap is the execution environment for this snap
+#version: '' # just for humans, typically '1.2+git' or '1.3.2'
+adopt-info: font-downloader
+grade: devel # must be 'stable' to release into candidate/stable channels
+confinement: devmode # use 'strict' once you have the right plugs and slots
+
+layout:
+  /usr/share/font-downloader:
+    symlink: $SNAP/usr/share/font-downloader
+
+slots:
+  font-downloader:
+    interface: dbus
+    bus: session
+    name: org.gustavoperedo.FontDownloader
+plugs:
+  home-fonts:
+    interface: personal-files
+    write:
+      - $HOME/.local/share/fonts
+  usr-share-fonts:
+    interface: system-files
+    read:
+      - /usr/share/fonts
+parts:
+  font-downloader:
+    # See 'snapcraft plugins'
+    plugin: meson
+    source: https://github.com/GustavoPeredo/font-downloader.git
+    source-tag: v10.0.0
+    meson-parameters:
+      - --prefix=/usr
+    parse-info: [ usr/share/metainfo/org.gustavoperedo.FontDownloader.appdata.xml ]
+    override-prime: |
+      craftctl default
+      sed -e '1c#!/usr/bin/env python3' -i usr/bin/font-downloader
+  
+apps:
+  font-downloader:
+    command: usr/bin/fontdownloader
+    desktop: usr/share/applications/org.gustavoperedo.FontDownloader.desktop
+    common-id: org.gustavoperedo.FontDownloader
+    extensions: [ gnome ]
+    plugs:
+      - home
