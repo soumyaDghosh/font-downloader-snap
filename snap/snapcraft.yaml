@@ -34,7 +34,7 @@ parts:
     parse-info: [ usr/share/metainfo/org.gustavoperedo.FontDownloader.appdata.xml ]
     override-prime: |
       craftctl default
-      sed -e '1c#!/usr/bin/env python3' -i usr/bin/font-downloader
+      sed -e '1c#!/usr/bin/env python3' -i usr/bin/fontdownloader
   
 apps:
   font-downloader:
