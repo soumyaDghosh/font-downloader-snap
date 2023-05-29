@@ -12,7 +12,7 @@ architecture:
   - build-on: amd64
     build-for: amd64, ppc64el, 	s390x
   - build-on: armhf
-  - build-on: amr64
+  - build-on: arm64
 slots:
   font-downloader:
     interface: dbus
