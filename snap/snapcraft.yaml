@@ -45,3 +45,6 @@ apps:
     extensions: [ gnome ]
     plugs:
       - home
+      - network
+      - network-bind
+      - network-status
