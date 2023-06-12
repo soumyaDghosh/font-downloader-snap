@@ -4,10 +4,6 @@ adopt-info: font-downloader
 version: '10.0.0'
 grade: stable # must be 'stable' to release into candidate/stable channels
 confinement: strict # use 'strict' once you have the right plugs and slots
-
-layout:
-  /usr/share/font-downloader:
-    symlink: $SNAP/usr/share/font-downloader
     
 architectures:
   - build-on: amd64
@@ -34,11 +30,13 @@ parts:
     source: https://github.com/GustavoPeredo/font-downloader.git
     source-tag: v10.0.0
     meson-parameters:
-      - --prefix=/usr
+      - --prefix=/snap/font-downloader/current/usr
     parse-info: [ usr/share/metainfo/org.gustavoperedo.FontDownloader.appdata.xml ]
     override-prime: |
       craftctl default
       sed -e '1c#!/usr/bin/env python3' -i usr/bin/fontdownloader
+    organize:
+      snap/font-downloader/current: .
   
 apps:
   font-downloader:
