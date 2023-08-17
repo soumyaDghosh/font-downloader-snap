@@ -15,7 +15,7 @@ slots:
     bus: session
     name: org.gustavoperedo.FontDownloader
 plugs:
-  home-fonts:
+  dot-local-share-fonts:
     interface: personal-files
     write:
       - $HOME/.local/share/fonts
